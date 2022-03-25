@@ -1,5 +1,6 @@
 const { trusted } = require("mongoose")
 const Hospital = require("../models/Hospital")
+const vacCenter = require("../models/VacCenter")
 
 //@desc     Get all hospitals
 //@route    GET /api/v1/hospitals
@@ -150,4 +151,19 @@ exports.deleteHospital = async (req, res, next) => {
   } catch(err) {
     res.status(400).json({ success: false })
   }
+}
+
+//@desc     Get vaccine centers
+//@route    Get /api/v1/hospitals/vacCenter
+//@access   Public
+exports.getVacCenters = (req, res, next) => {
+  vacCenter.getAll((err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message || "Some error occured while retrieving Vaccine Centers."
+      })
+    } else { 
+      res.send(data)
+    }
+  })
 }
